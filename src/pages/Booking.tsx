@@ -138,7 +138,7 @@ export function Booking() {
                         <Label htmlFor="service">Service</Label>
                         <Select
                           value={formData.service}
-                          onValueChange={(value) => handleChange('service', value)}
+                          onValueChange={(value: string) => handleChange('service', value)}
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Select a service" />
@@ -169,7 +169,7 @@ export function Booking() {
                           <Label htmlFor="time">Time</Label>
                           <Select
                             value={formData.time}
-                            onValueChange={(value) => handleChange('time', value)}
+                            onValueChange={(value: string) => handleChange('time', value)}
                           >
                             <SelectTrigger>
                               <SelectValue placeholder="Select time" />
