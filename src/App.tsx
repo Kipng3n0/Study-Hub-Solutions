@@ -16,11 +16,11 @@ import { Booking } from '@/pages/Booking'
 import { FAQ } from '@/pages/FAQ'
 
 function App() {
-  const { isDark, setTheme } = useThemeStore()
+  const { setTheme } = useThemeStore()
 
   useEffect(() => {
-    // Initialize theme on mount
-    setTheme(isDark)
+    // Force dark theme on mount
+    setTheme(true)
   }, [])
 
   return (
