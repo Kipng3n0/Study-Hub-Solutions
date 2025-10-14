@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { GraduationCap, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Github, Youtube } from 'lucide-react'
+import { GraduationCap, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Github, Youtube, MessageCircle, Instagram } from 'lucide-react'
 
 const footerLinks = {
   services: [
@@ -33,6 +33,8 @@ const socialLinks = [
   { name: 'LinkedIn', icon: Linkedin, href: '#' },
   { name: 'GitHub', icon: Github, href: '#' },
   { name: 'YouTube', icon: Youtube, href: '#' },
+  { name: 'WhatsApp', icon: MessageCircle, href: '#' },
+  { name: 'Instagram', icon: Instagram, href: '#' },
 ]
 
 export function Footer() {
@@ -52,11 +54,11 @@ export function Footer() {
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>contact@studyhubsolutions.com</span>
+                <span>contact@studyhubsolutions25.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+1 (909) 9627940</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
