@@ -12,14 +12,14 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'support@studyhubsolutions.com',
-    link: 'mailto:support@studyhubsolutions.com',
+    content: 'support@studyhubsolutions25.com',
+    link: 'mailto:support@studyhubsolutions25.com',
   },
   {
     icon: Phone,
     title: 'Phone',
-    content: '+1 (555) 123-4567',
-    link: 'tel:+15551234567',
+    content: '+1 (909) 962-7940',
+    link: 'tel:+19099627940',//whatsapp
   },
   {
     icon: MapPin,

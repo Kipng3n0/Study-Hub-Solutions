@@ -1,3 +1,5 @@
+/* stylelint-disable */
+/* postcss-bem-linter: ignore */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

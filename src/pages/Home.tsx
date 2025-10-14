@@ -138,7 +138,7 @@ export function Home() {
             className="text-center max-w-4xl mx-auto"
           >
             <Badge className="mb-4" variant="secondary">
-              🎓 Your Academic Success Partner
+              Your Academic Success Partner
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">
               Master Your Academics with Expert Guidance
@@ -448,4 +448,5 @@ export function Home() {
       </section>
     </div>
   )
+  
 }
