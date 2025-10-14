@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, ChevronDown, HelpCircle, BookOpen, CreditCard, Clock, Shield, Users } from 'lucide-react'
+import { Search, HelpCircle, BookOpen, CreditCard, Clock, Shield, Users } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
