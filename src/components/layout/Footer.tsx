@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { GraduationCap, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Github, Youtube, MessageCircle, Instagram } from 'lucide-react'
+import { GraduationCap, Mail, Phone, MapPin, Twitter, Linkedin, Github, MessageCircle, Instagram } from 'lucide-react'
 
 const footerLinks = {
   services: [
@@ -28,13 +28,11 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'Twitter', icon: Twitter, href: '#' },
+  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/kipng3n0' },
   { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'GitHub', icon: Github, href: '#' },
-  { name: 'YouTube', icon: Youtube, href: '#' },
-  { name: 'WhatsApp', icon: MessageCircle, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
+  { name: 'GitHub', icon: Github, href: 'https://github.com/Kipng3n0' },
+  { name: 'WhatsApp', icon: MessageCircle, href: 'https://wa.me/19099627940' },
+  { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/kipng.en.o' },
 ]
 
 export function Footer() {
@@ -123,7 +121,7 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon
                 return (
@@ -132,10 +130,10 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-background border-2 border-muted-foreground/20 transition-all duration-300 hover:border-primary hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
                     aria-label={social.name}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-5 w-5 text-primary transition-transform duration-300 group-hover:scale-110" />
                   </a>
                 )
               })}
