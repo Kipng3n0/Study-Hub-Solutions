@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useToast } from '@/hooks/use-toast'
+import { supabase } from '@/lib/supabase'
 
 const services = [
   'Project Help - Web Development',
@@ -48,16 +49,41 @@ export function Booking() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate booking submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      // Insert booking data into Supabase
+      const { error } = await supabase
+        .from('bookings')
+        .insert([
+          {
+            service: formData.service,
+            date: formData.date,
+            time: formData.time,
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message || null,
+            status: 'pending'
+          }
+        ])
 
-    toast({
-      title: 'Booking confirmed!',
-      description: "We'll send you a confirmation email shortly.",
-    })
+      if (error) throw error
 
-    setStep(4)
-    setIsSubmitting(false)
+      toast({
+        title: 'Booking confirmed!',
+        description: "We'll send you a confirmation email shortly.",
+      })
+
+      setStep(4)
+    } catch (error) {
+      console.error('Error submitting booking:', error)
+      toast({
+        title: 'Booking failed',
+        description: 'Please try again later or contact us directly.',
+        variant: 'destructive',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const canProceedToStep2 = formData.service && formData.date && formData.time

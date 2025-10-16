@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
+import { supabase } from '@/lib/supabase'
 
 const contactInfo = [
   {
@@ -49,16 +50,38 @@ export function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      // Insert contact form data into Supabase
+      const { error } = await supabase
+        .from('contacts')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            status: 'new'
+          }
+        ])
 
-    toast({
-      title: 'Message sent!',
-      description: "We'll get back to you as soon as possible.",
-    })
+      if (error) throw error
 
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    setIsSubmitting(false)
+      toast({
+        title: 'Message sent successfully!',
+        description: "We'll get back to you as soon as possible.",
+      })
+
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (error) {
+      console.error('Error submitting contact form:', error)
+      toast({
+        title: 'Failed to send message',
+        description: 'Please try again later or contact us directly.',
+        variant: 'destructive',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

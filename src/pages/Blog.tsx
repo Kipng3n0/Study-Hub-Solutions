@@ -1,79 +1,52 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Calendar, Clock, User, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { supabase } from '@/lib/supabase'
 
 const categories = ['All', 'Web Development', 'Mobile', 'Data Science', 'AI/ML', 'Career Tips', 'Tutorials']
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Getting Started with React and TypeScript',
-    excerpt: 'Learn how to set up a modern React project with TypeScript and best practices for type-safe development',
-    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop',
-    category: 'Web Development',
-    author: 'John Doe',
-    date: '2024-03-15',
-    readTime: '5 min read',
-  },
-  {
-    id: 2,
-    title: 'Building Scalable APIs with Node.js',
-    excerpt: 'Explore architectural patterns and best practices for creating robust and scalable backend services',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop',
-    category: 'Web Development',
-    author: 'Jane Smith',
-    date: '2024-03-12',
-    readTime: '8 min read',
-  },
-  {
-    id: 3,
-    title: 'Machine Learning Basics for Beginners',
-    excerpt: 'An introduction to machine learning concepts, algorithms, and practical applications',
-    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop',
-    category: 'AI/ML',
-    author: 'Alex Johnson',
-    date: '2024-03-10',
-    readTime: '10 min read',
-  },
-  {
-    id: 4,
-    title: 'Mobile App Development with React Native',
-    excerpt: 'Build cross-platform mobile applications using React Native and modern development tools',
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
-    category: 'Mobile',
-    author: 'Sarah Williams',
-    date: '2024-03-08',
-    readTime: '7 min read',
-  },
-  {
-    id: 5,
-    title: 'Data Visualization with D3.js',
-    excerpt: 'Create stunning interactive data visualizations using D3.js and modern web technologies',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    category: 'Data Science',
-    author: 'Michael Brown',
-    date: '2024-03-05',
-    readTime: '6 min read',
-  },
-  {
-    id: 6,
-    title: 'Career Tips for Software Developers',
-    excerpt: 'Essential advice for advancing your career in software development and tech industry',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop',
-    category: 'Career Tips',
-    author: 'Emily Davis',
-    date: '2024-03-01',
-    readTime: '4 min read',
-  },
-]
+type BlogPost = {
+  id: string
+  title: string
+  excerpt: string
+  image: string
+  category: string
+  author: string
+  created_at: string
+  read_time: string
+}
 
 export function Blog() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchBlogPosts()
+  }, [])
+
+  const fetchBlogPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('id, title, excerpt, image, category, author, created_at, read_time')
+        .eq('published', true)
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+
+      setBlogPosts(data || [])
+    } catch (error) {
+      console.error('Error fetching blog posts:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const filteredPosts = blogPosts.filter((post) => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -140,7 +113,11 @@ export function Blog() {
             </p>
           </div>
 
-          {filteredPosts.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-xl text-muted-foreground">Loading articles...</p>
+            </div>
+          ) : filteredPosts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-xl text-muted-foreground">No articles found matching your criteria</p>
             </div>
@@ -177,14 +154,14 @@ export function Blog() {
                           </div>
                           <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />
-                            <span>{post.readTime}</span>
+                            <span>{post.read_time}</span>
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-sm text-muted-foreground">
                           <Calendar className="h-4 w-4" />
-                          <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                          <span>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                         </div>
                         <Button variant="ghost" size="sm" className="group-hover:translate-x-1 transition-transform">
                           Read More
