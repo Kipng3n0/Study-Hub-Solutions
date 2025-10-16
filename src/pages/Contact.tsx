@@ -12,8 +12,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'support@studyhubsolutions25.com',
-    link: 'mailto:support@studyhubsolutions25.com',
+    content: 'studyhubsolutions96@gmail.com',
+    link: 'studyhubsolutions96@gmail.com',
   },
   {
     icon: Phone,
@@ -158,7 +158,7 @@ export function Contact() {
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="your.email@example.com"
+                        placeholder="your.email@example@gmail.com"
                         value={formData.email}
                         onChange={handleChange}
                         required
