@@ -37,6 +37,7 @@ export interface Database {
           message?: string
           status?: 'new' | 'read' | 'replied'
         }
+        Relationships: []
       }
       bookings: {
         Row: {
@@ -75,6 +76,7 @@ export interface Database {
           message?: string | null
           status?: 'pending' | 'confirmed' | 'cancelled' | 'completed'
         }
+        Relationships: []
       }
       blog_posts: {
         Row: {
@@ -119,7 +121,20 @@ export interface Database {
           published?: boolean
           slug?: string
         }
+        Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
     }
   }
 }

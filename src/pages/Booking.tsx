@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
+import type { Database } from '@/lib/database.types'
 
 const services = [
   'Project Help - Web Development',
@@ -51,20 +52,20 @@ export function Booking() {
 
     try {
       // Insert booking data into Supabase
+      const bookingData: Database['public']['Tables']['bookings']['Insert'] = {
+        service: formData.service,
+        date: formData.date,
+        time: formData.time,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message || null,
+        status: 'pending'
+      }
+
       const { error } = await supabase
         .from('bookings')
-        .insert([
-          {
-            service: formData.service,
-            date: formData.date,
-            time: formData.time,
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            message: formData.message || null,
-            status: 'pending'
-          }
-        ])
+        .insert([bookingData])
 
       if (error) throw error
 
