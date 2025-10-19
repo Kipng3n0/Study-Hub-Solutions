@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
 import type { Database } from '@/lib/database.types'
+import emailjs from '@emailjs/browser'
 
 const services = [
   'Project Help - Web Development',
@@ -63,11 +64,35 @@ export function Booking() {
         status: 'pending'
       }
 
-      const { error } = await supabase
+      const { error: dbError } = await supabase
         .from('bookings')
         .insert([bookingData])
 
-      if (error) throw error
+      if (dbError) throw dbError
+
+      // Format date for email
+      const bookingDate = new Date(formData.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+
+      // Send email via EmailJS
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_BOOKING_TEMPLATE_ID,
+        {
+          service: formData.service,
+          date: bookingDate,
+          time: formData.time,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message || 'No additional information provided',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
 
       toast({
         title: 'Booking confirmed!',

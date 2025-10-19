@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
+import emailjs from '@emailjs/browser'
 
 const contactInfo = [
   {
@@ -51,8 +52,8 @@ export function Contact() {
     setIsSubmitting(true)
 
     try {
-      // Insert contact form data into Supabase
-      const { error } = await supabase
+      // Save to Supabase database
+      const { error: dbError } = await supabase
         .from('contacts')
         .insert([
           {
@@ -64,7 +65,20 @@ export function Contact() {
           }
         ])
 
-      if (error) throw error
+      if (dbError) throw dbError
+
+      // Send email via EmailJS
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
 
       toast({
         title: 'Message sent successfully!',
