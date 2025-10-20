@@ -116,11 +116,11 @@ All tables have Row Level Security (RLS) enabled for data protection.
 
 ## 🔐 Security
 
-- ✅ Environment variables for sensitive data
-- ✅ Row Level Security on all tables
-- ✅ Type-safe API calls with TypeScript
-- ✅ Input validation on all forms
-- ✅ Anon key safe for client-side use
+- Environment variables for sensitive data
+-  Row Level Security on all tables
+-  Type-safe API calls with TypeScript
+-  Input validation on all forms
+- Anon key safe for client-side use
 
 ## 📊 Managing Data
 
@@ -153,7 +153,7 @@ Add environment variables in your hosting platform's settings.
 ### Backend
 Supabase is already deployed! No additional backend deployment needed.
 
-## 🔄 Available Scripts
+## Available Scripts
 
 | Script | Description |
 |--------|-------------|
@@ -162,7 +162,7 @@ Supabase is already deployed! No additional backend deployment needed.
 | `npm run preview` | Preview production build |
 | `npm run lint` | Run ESLint |
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -181,7 +181,7 @@ For issues and questions:
 - Open an issue on GitHub
 - Contact: studyhubsolutions96@gmail.com
 
-## 🎯 Roadmap
+##  Roadmap
 
 - [ ] Email notifications for form submissions
 - [ ] Admin dashboard for managing data
@@ -192,4 +192,4 @@ For issues and questions:
 
 ---
 
-Built with ❤️ using React, TypeScript, and Supabase
+Built with using React, TypeScript, and Supabase
