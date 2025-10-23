@@ -4,11 +4,11 @@ This guide will help you set up Supabase as the backend for Study Hub Solutions.
 
 ## What Supabase Handles
 
-- ✅ **Contact Form**: Store and manage contact submissions
-- ✅ **Bookings**: Manage session bookings with status tracking
-- ✅ **Blog Posts**: Dynamic content management with CMS capabilities
-- ✅ **Database**: PostgreSQL database with Row Level Security
-- ✅ **Real-time**: Optional real-time subscriptions for live updates
+-  **Contact Form**: Store and manage contact submissions
+-  **Bookings**: Manage session bookings with status tracking
+-  **Blog Posts**: Dynamic content management with CMS capabilities
+-  **Database**: PostgreSQL database with Row Level Security
+-  **Real-time**: Optional real-time subscriptions for live updates
 
 ## Step 1: Create a Supabase Project
 
@@ -99,16 +99,16 @@ Environment variables are loaded at startup, so restart is required.
 The schema includes secure RLS policies:
 
 ### Contacts Table
-- ✅ **Anyone can INSERT** - Public form submissions
-- 🔒 **Only authenticated users can SELECT** - View submissions
+-  **Anyone can INSERT** - Public form submissions
+-  **Only authenticated users can SELECT** - View submissions
 
 ### Bookings Table
-- ✅ **Anyone can INSERT** - Public booking requests
-- 🔒 **Only authenticated users can SELECT** - View bookings
+-  **Anyone can INSERT** - Public booking requests
+-  **Only authenticated users can SELECT** - View bookings
 
 ### Blog Posts Table
-- ✅ **Anyone can SELECT published posts** - Public blog access
-- 🔒 **Only authenticated users can INSERT/UPDATE/DELETE** - Content management
+-  **Anyone can SELECT published posts** - Public blog access
+-  **Only authenticated users can INSERT/UPDATE/DELETE** - Content management
 
 ## Managing Your Data
 
@@ -248,12 +248,12 @@ Supabase automatically backs up your database daily. To manually export:
 
 ## Security Best Practices
 
-✅ **Never commit `.env` file** - Already gitignored
-✅ **Use anon key for client** - It's safe, RLS protects data
-✅ **Keep service role key secret** - Never expose in frontend
-✅ **Enable RLS on all tables** - Already configured
-✅ **Validate input** - Forms have validation
-⚠️ **Add rate limiting** - Consider Supabase rate limits on free tier
+ **Never commit `.env` file** - Already gitignored
+ **Use anon key for client** - It's safe, RLS protects data
+ **Keep service role key secret** - Never expose in frontend
+ **Enable RLS on all tables** - Already configured
+ **Validate input** - Forms have validation
+ **Add rate limiting** - Consider Supabase rate limits on free tier
 
 ## Upgrading to Production
 
@@ -285,10 +285,10 @@ Perfect for getting started!
 
 ## Next Steps
 
-1. ✅ Set up Supabase project
-2. ✅ Configure environment variables
-3. ✅ Run database schema
-4. ✅ Test all forms
+1.  Set up Supabase project
+2.  Configure environment variables
+3.  Run database schema
+4.  Test all forms
 5. 🔲 (Optional) Add email notifications
 6. 🔲 (Optional) Build admin dashboard
 7. 🔲 (Optional) Add authentication for team
