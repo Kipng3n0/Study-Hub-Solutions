@@ -8,7 +8,7 @@ import { useThemeStore } from '@/store/theme'
 // Pages
 import { Home } from '@/pages/Home'
 import { Services } from '@/pages/Services'
-import { Projects } from '@/pages/Projects'
+import Projects from '@/pages/Projects'
 import { Demos } from '@/pages/Demos'
 import { Blog } from '@/pages/Blog'
 import { About } from '@/pages/About'
