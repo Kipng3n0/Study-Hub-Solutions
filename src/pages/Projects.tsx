@@ -1,10 +1,81 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Search, ExternalLink, Github } from 'lucide-react'
+import { Search, ExternalLink, Github, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { useToast } from '@/hooks/use-toast'
+
+// Curated list of showcase projects
+const fallbackProjects = [
+  {
+    id: 1,
+    title: 'E-Commerce Platform',
+    description: 'A full-featured e-commerce platform with product listings, cart, and payment integration using Stripe.',
+    image: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&h=600&fit=crop',
+    category: 'Web Development',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    difficulty: 'Advanced',
+    demoLink: 'https://example-ecommerce-demo.com',
+    githubLink: 'https://github.com/example/ecommerce-platform',
+  },
+  {
+    id: 2,
+    title: 'Task Manager Pro',
+    description: 'A collaborative task management tool with real-time updates, drag-and-drop interface, and team features.',
+    image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop',
+    category: 'Productivity',
+    technologies: ['TypeScript', 'React', 'Firebase'],
+    difficulty: 'Intermediate',
+    demoLink: 'https://taskmanagerpro-demo.netlify.app',
+    githubLink: 'https://github.com/example/task-manager-pro',
+  },
+  {
+    id: 3,
+    title: 'AI Image Generator',
+    description: 'Generate stunning AI art using Stable Diffusion with custom prompts and style presets.',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=600&fit=crop',
+    category: 'AI/ML',
+    technologies: ['Python', 'TensorFlow', 'React'],
+    difficulty: 'Advanced',
+    demoLink: 'https://ai-art-generator.vercel.app',
+    githubLink: 'https://github.com/example/ai-image-generator',
+  },
+  {
+    id: 4,
+    title: 'Personal Finance Tracker',
+    description: 'Track expenses, set budgets, and visualize your spending with interactive charts.',
+    image: 'https://images.unsplash.com/photo-1554224155-3a58922a22c3?w=800&h=600&fit=crop',
+    category: 'Finance',
+    technologies: ['Next.js', 'Tailwind CSS', 'Firebase'],
+    difficulty: 'Intermediate',
+    demoLink: 'https://finance-tracker-demo.vercel.app',
+    githubLink: 'https://github.com/example/finance-tracker',
+  },
+  {
+    id: 5,
+    title: 'Recipe Finder',
+    description: 'Find recipes based on ingredients you have, with nutritional information and step-by-step instructions.',
+    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+    category: 'Food & Nutrition',
+    technologies: ['React', 'Spoonacular API', 'Material-UI'],
+    difficulty: 'Beginner',
+    demoLink: 'https://recipe-finder-demo.netlify.app',
+    githubLink: 'https://github.com/example/recipe-finder',
+  },
+  {
+    id: 6,
+    title: 'Fitness Tracker',
+    description: 'Plan workouts, track progress, and get personalized fitness recommendations.',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
+    category: 'Health & Fitness',
+    technologies: ['React Native', 'Firebase', 'Redux'],
+    difficulty: 'Intermediate',
+    demoLink: 'https://fitness-tracker-expo.vercel.app',
+    githubLink: 'https://github.com/example/fitness-tracker',
+  }
+];
 
 const categories = ['All', 'Web Development', 'Mobile', 'Data Science', 'AI/ML', 'Backend', 'Frontend']
 
@@ -12,93 +83,53 @@ const technologies = ['All', 'React', 'Python', 'Node.js', 'Django', 'TypeScript
 
 const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
-const projects = [
-  {
-    id: 1,
-    title: 'E-Commerce Platform',
-    description: 'Full-featured online store with payment integration, admin dashboard, and inventory management',
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
-    category: 'Web Development',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    difficulty: 'Advanced',
-    demoLink: '#',
-    githubLink: '#',
-  },
-  {
-    id: 2,
-    title: 'Data Visualization Dashboard',
-    description: 'Interactive analytics dashboard with real-time data processing and beautiful charts',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    category: 'Data Science',
-    technologies: ['Python', 'D3.js', 'Flask', 'PostgreSQL'],
-    difficulty: 'Intermediate',
-    demoLink: '#',
-    githubLink: '#',
-  },
-  {
-    id: 3,
-    title: 'Mobile Learning App',
-    description: 'Cross-platform educational app with gamification, progress tracking, and offline support',
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
-    category: 'Mobile',
-    technologies: ['React Native', 'Firebase', 'Redux'],
-    difficulty: 'Advanced',
-    demoLink: '#',
-    githubLink: '#',
-  },
-  {
-    id: 4,
-    title: 'AI Chatbot Assistant',
-    description: 'Intelligent chatbot using natural language processing for customer support',
-    image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&h=600&fit=crop',
-    category: 'AI/ML',
-    technologies: ['Python', 'TensorFlow', 'Flask'],
-    difficulty: 'Advanced',
-    demoLink: '#',
-    githubLink: '#',
-  },
-  {
-    id: 5,
-    title: 'Task Management System',
-    description: 'Collaborative project management tool with real-time updates and team features',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-    category: 'Web Development',
-    technologies: ['React', 'TypeScript', 'Node.js', 'Socket.io'],
-    difficulty: 'Intermediate',
-    demoLink: '#',
-    githubLink: '#',
-  },
-  {
-    id: 6,
-    title: 'Weather Forecast App',
-    description: 'Beautiful weather application with location-based forecasts and interactive maps',
-    image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop',
-    category: 'Frontend',
-    technologies: ['React', 'TypeScript', 'API'],
-    difficulty: 'Beginner',
-    demoLink: '#',
-    githubLink: '#',
-  },
-]
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  topics: string[];
+  language: string | null;
+  created_at: string;
+  updated_at: string;
+  stargazers_count: number;
+  forks_count: number;
+  fork: boolean;
+  owner: {
+    login: string;
+  }
+}
 
-export function Projects() {
-  const [searchQuery, setSearchQuery] = useState('')
+export default function Projects() {
+  const { toast } = useToast()
+  const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedTech, setSelectedTech] = useState('All')
   const [selectedDifficulty, setSelectedDifficulty] = useState('All')
 
-  const filteredProjects = projects.filter((project) => {
-    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory
-    const matchesTech = selectedTech === 'All' || project.technologies.includes(selectedTech)
-    const matchesDifficulty = selectedDifficulty === 'All' || project.difficulty === selectedDifficulty
-
+  const filteredProjects = fallbackProjects.filter(project => {
+    const matchesSearch = searchTerm === '' || 
+      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase())
+      
+    const matchesCategory = selectedCategory === 'All' || 
+      project.category === selectedCategory
+      
+    const matchesTech = selectedTech === 'All' || 
+      project.technologies.some(tech => 
+        tech.toLowerCase().includes(selectedTech.toLowerCase())
+      )
+      
+    const matchesDifficulty = selectedDifficulty === 'All' || 
+      project.difficulty === selectedDifficulty
+      
     return matchesSearch && matchesCategory && matchesTech && matchesDifficulty
   })
 
   return (
     <div className="min-h-screen pt-16">
+      
       {/* Hero Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container mx-auto">
@@ -118,8 +149,8 @@ export function Projects() {
               <Input
                 type="text"
                 placeholder="Search projects..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 h-12"
               />
             </div>
@@ -151,18 +182,11 @@ export function Projects() {
             {/* Technology Filter */}
             <div>
               <h3 className="text-sm font-semibold mb-3">Technology</h3>
-              <div className="flex flex-wrap gap-2">
-                {technologies.map((tech) => (
-                  <Button
-                    key={tech}
-                    variant={selectedTech === tech ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSelectedTech(tech)}
-                  >
-                    {tech}
-                  </Button>
-                ))}
-              </div>
+              <div className="text-center py-12">
+              <p className="text-muted-foreground">
+                No projects found. Try adjusting your search or filters.
+              </p>
+            </div>
             </div>
 
             {/* Difficulty Filter */}
@@ -190,7 +214,7 @@ export function Projects() {
         <div className="container mx-auto">
           <div className="mb-6">
             <p className="text-muted-foreground">
-              Showing {filteredProjects.length} of {projects.length} projects
+              Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
             </p>
           </div>
 
@@ -200,52 +224,76 @@ export function Projects() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+              {filteredProjects.map((project) => (
+                <a 
+                  key={project.id} 
+                  href={project.githubLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="no-underline"
                 >
-                  <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow">
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <Badge>{project.category}</Badge>
-                        <Badge variant="secondary">{project.difficulty}</Badge>
+                  <Card className="group flex flex-col h-full hover:shadow-lg transition-transform hover:scale-[1.02] transition-all duration-300">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                    <CardHeader className="flex-grow">
+                      <div className="flex justify-between items-start gap-2">
+                        <div>
+                          <CardTitle className="text-xl">{project.title}</CardTitle>
+                          <Badge variant="outline" className="mt-2">
+                            {project.difficulty}
+                          </Badge>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="outline" 
+                            size="icon" 
+                            className="h-8 w-8"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              window.open(project.demoLink, '_blank');
+                            }}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="icon" 
+                            className="h-8 w-8"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              window.open(project.githubLink, '_blank');
+                            }}
+                          >
+                            <Github className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
-                      <CardTitle>{project.title}</CardTitle>
                       <CardDescription>{project.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech) => (
-                          <Badge key={tech} variant="outline">{tech}</Badge>
+                          <Badge key={tech} variant="secondary">
+                            {tech}
+                          </Badge>
                         ))}
                       </div>
-                      <div className="flex gap-2">
-                        <Button variant="default" className="flex-1" asChild>
-                          <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Demo
-                          </a>
-                        </Button>
-                        <Button variant="outline" className="flex-1" asChild>
-                          <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 h-4 w-4" />
-                            Code
-                          </a>
-                        </Button>
+                      <div className="mt-4">
+                        <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm hover:underline">
+                          <Github className="mr-2 h-4 w-4" />
+                          Code
+                        </a>
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </a>
               ))}
             </div>
           )}
