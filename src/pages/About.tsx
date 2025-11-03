@@ -28,27 +28,27 @@ const values = [
 
 const team = [
   {
-    name: 'Dr. James Wilson',
+    name: 'Alex Mwanzo',
     role: 'Founder & Lead Instructor',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
+    image: '/images/team/alex-mwanzo.jpg',
     expertise: ['Web Development', 'Software Architecture', 'AI/ML'],
   },
   {
-    name: 'Sarah Martinez',
+    name: 'Ivan Pavlo',
     role: 'Senior Developer & Tutor',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
+    image: '/images/team/ivan-pavlo.jpg',
     expertise: ['Full-Stack Development', 'Mobile Apps', 'UI/UX'],
   },
   {
-    name: 'Michael Chen',
+    name: 'Hillary Johnson',
     role: 'Data Science Specialist',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    image: '/images/team/hillary-johnson.jpg',
     expertise: ['Data Analysis', 'Machine Learning', 'Python'],
   },
   {
-    name: 'Emily Rodriguez',
+    name: 'Andrew Nzioka',
     role: 'Frontend Developer',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
+    image: '/images/team/andrew-nzioka.jpg',
     expertise: ['React', 'TypeScript', 'Modern CSS'],
   },
 ]

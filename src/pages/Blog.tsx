@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Link } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 
 const categories = ['All', 'Web Development', 'Mobile', 'Data Science', 'AI/ML', 'Career Tips', 'Tutorials']
@@ -130,45 +131,46 @@ export function Blog() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow group">
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge>{post.category}</Badge>
+                  <Card key={post.id} className="h-full flex flex-col hover:shadow-lg transition-shadow">
+                    <Link to={`/blog/${post.id}`} className="block h-full">
+                      <div className="relative h-48 overflow-hidden rounded-t-lg">
+                        <img
+                          src={post.image || '/placeholder.svg'}
+                          alt={post.title}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                        <Badge className="absolute top-2 left-2">
+                          {post.category}
+                        </Badge>
                       </div>
-                      <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-                      <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>{post.author}</span>
+                      <CardHeader>
+                        <CardTitle className="text-xl hover:text-primary transition-colors">
+                          {post.title}
+                        </CardTitle>
+                        <CardDescription className="line-clamp-2">
+                          {post.excerpt}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="mt-auto">
+                        <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-center">
+                            <User className="h-4 w-4 mr-1" />
+                            {post.author}
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            <span>{post.read_time}</span>
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 mr-1" />
+                            {new Date(post.created_at).toLocaleDateString()}
+                          </div>
+                          <div className="flex items-center">
+                            <Clock className="h-4 w-4 mr-1" />
+                            {post.read_time}
                           </div>
                         </div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Calendar className="h-4 w-4" />
-                          <span>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                        <div className="mt-4 flex items-center text-primary font-medium">
+                          Read more <ArrowRight className="ml-2 h-4 w-4" />
                         </div>
-                        <Button variant="ghost" size="sm" className="group-hover:translate-x-1 transition-transform">
-                          Read More
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
+                      </CardContent>
+                    </Link>
                   </Card>
                 </motion.div>
               ))}
