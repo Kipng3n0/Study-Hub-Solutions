@@ -2,7 +2,7 @@
 
 A modern web application for educational services with integrated booking, contact forms, and blog functionality.
 
-## 🚀 Features
+##  Features
 
 - **Contact Form** - Submit inquiries directly to database
 - **Booking System** - Schedule sessions with multi-step form
@@ -11,7 +11,7 @@ A modern web application for educational services with integrated booking, conta
 - **Type Safety** - Full TypeScript support
 - **Backend** - Powered by Supabase (PostgreSQL)
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: React 18 + TypeScript + Vite
 - **Styling**: TailwindCSS + shadcn/ui components
@@ -20,7 +20,7 @@ A modern web application for educational services with integrated booking, conta
 - **Form Management**: React Hook Form + Zod
 - **Routing**: React Router v6
 
-## 📦 Installation
+##  Installation
 
 ```bash
 # Clone the repository
@@ -35,7 +35,7 @@ cp .env.example .env
 # Edit .env and add your Supabase credentials
 ```
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Supabase Setup
 
@@ -53,9 +53,9 @@ VITE_SUPABASE_ANON_KEY=your_anon_key
    - Copy contents from `supabase/schema.sql`
    - Execute the query
 
-📖 **Full setup guide**: See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
+**Full setup guide**: See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
 
-## 🏃 Running the Application
+## Running the Application
 
 ```bash
 # Development server
@@ -73,7 +73,7 @@ npm run lint
 
 Application runs on `http://localhost:5173`
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Study-Hub-Solutions/
@@ -99,7 +99,7 @@ Study-Hub-Solutions/
 └── SUPABASE_SETUP.md  # Setup documentation
 ```
 
-## 🗄️ Database Schema
+##  Database Schema
 
 ### Tables
 
@@ -114,7 +114,7 @@ Study-Hub-Solutions/
 
 All tables have Row Level Security (RLS) enabled for data protection.
 
-## 🔐 Security
+## Security
 
 - Environment variables for sensitive data
 -  Row Level Security on all tables
@@ -122,7 +122,7 @@ All tables have Row Level Security (RLS) enabled for data protection.
 -  Input validation on all forms
 - Anon key safe for client-side use
 
-## 📊 Managing Data
+## Managing Data
 
 ### View Submissions
 - Access Supabase Dashboard → Table Editor
@@ -132,7 +132,7 @@ All tables have Row Level Security (RLS) enabled for data protection.
 - Add/edit posts via Supabase Table Editor
 - Or build a custom admin panel with Supabase Auth
 
-## 🚢 Deployment
+## Deployment
 
 ### Frontend Deployment
 
@@ -170,11 +170,11 @@ Supabase is already deployed! No additional backend deployment needed.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License.
 
-## 💬 Support
+##  Support
 
 For issues and questions:
 - Check [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
