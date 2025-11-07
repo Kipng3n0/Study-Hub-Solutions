@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
-import emailjs from '@emailjs/browser'
 
 const contactInfo = [
   {
@@ -53,32 +52,47 @@ export function Contact() {
 
     try {
       // Save to Supabase database
+      const contactRecord = {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        status: 'new' as const
+      }
+
+      console.log('Attempting to save contact:', contactRecord)
+      
       const { error: dbError } = await supabase
         .from('contacts')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            status: 'new'
-          }
-        ])
+        .insert([contactRecord])
 
-      if (dbError) throw dbError
+      if (dbError) {
+        console.error('Database error:', dbError)
+        throw dbError
+      }
 
-      // Send email via EmailJS
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
+      console.log('Contact saved successfully, sending email...')
+
+      // Send email via direct fetch to Edge Function
+      try {
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({ record: contactRecord })
+        })
+
+        if (response.ok) {
+          console.log('Email sent successfully')
+        } else {
+          console.warn('Email sending failed:', await response.text())
+        }
+      } catch (emailError) {
+        console.warn('Email sending failed:', emailError)
+        // Don't throw error - contact was saved successfully
+      }
 
       toast({
         title: 'Message sent successfully!',
