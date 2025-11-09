@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, ExternalLink, Github, Loader2 } from 'lucide-react'
+import { Search, ExternalLink, Github } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { useToast } from '@/hooks/use-toast'
 
 // Curated list of showcase projects
 const fallbackProjects = [
@@ -83,26 +82,8 @@ const technologies = ['All', 'React', 'Python', 'Node.js', 'Django', 'TypeScript
 
 const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
-interface GitHubRepo {
-  id: number;
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  topics: string[];
-  language: string | null;
-  created_at: string;
-  updated_at: string;
-  stargazers_count: number;
-  forks_count: number;
-  fork: boolean;
-  owner: {
-    login: string;
-  }
-}
 
 export default function Projects() {
-  const { toast } = useToast()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedTech, setSelectedTech] = useState('All')
@@ -182,11 +163,18 @@ export default function Projects() {
             {/* Technology Filter */}
             <div>
               <h3 className="text-sm font-semibold mb-3">Technology</h3>
-              <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                No projects found. Try adjusting your search or filters.
-              </p>
-            </div>
+              <div className="flex flex-wrap gap-2">
+                {technologies.map((tech) => (
+                  <Button
+                    key={tech}
+                    variant={selectedTech === tech ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedTech(tech)}
+                  >
+                    {tech}
+                  </Button>
+                ))}
+              </div>
             </div>
 
             {/* Difficulty Filter */}
@@ -225,14 +213,11 @@ export default function Projects() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((project) => (
-                <a 
+                <Card 
                   key={project.id} 
-                  href={project.githubLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="no-underline"
+                  className="group flex flex-col h-full hover:shadow-lg transition-all hover:scale-[1.02] duration-300 cursor-pointer"
+                  onClick={() => window.open(project.githubLink, '_blank')}
                 >
-                  <Card className="group flex flex-col h-full hover:shadow-lg transition-transform hover:scale-[1.02] transition-all duration-300">
                   <div className="aspect-video overflow-hidden">
                     <img
                       src={project.image}
@@ -240,60 +225,66 @@ export default function Projects() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                    <CardHeader className="flex-grow">
-                      <div className="flex justify-between items-start gap-2">
-                        <div>
-                          <CardTitle className="text-xl">{project.title}</CardTitle>
-                          <Badge variant="outline" className="mt-2">
-                            {project.difficulty}
-                          </Badge>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button 
-                            variant="outline" 
-                            size="icon" 
-                            className="h-8 w-8"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              window.open(project.demoLink, '_blank');
-                            }}
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="icon" 
-                            className="h-8 w-8"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              window.open(project.githubLink, '_blank');
-                            }}
-                          >
-                            <Github className="h-4 w-4" />
-                          </Button>
-                        </div>
+                  <CardHeader className="flex-grow">
+                    <div className="flex justify-between items-start gap-2">
+                      <div>
+                        <CardTitle className="text-xl">{project.title}</CardTitle>
+                        <Badge variant="outline" className="mt-2">
+                          {project.difficulty}
+                        </Badge>
                       </div>
-                      <CardDescription>{project.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech) => (
-                          <Badge key={tech} variant="secondary">
-                            {tech}
-                          </Badge>
-                        ))}
+                      <div className="flex gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="icon" 
+                          className="h-8 w-8"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(project.demoLink, '_blank');
+                          }}
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="icon" 
+                          className="h-8 w-8"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(project.githubLink, '_blank');
+                          }}
+                        >
+                          <Github className="h-4 w-4" />
+                        </Button>
                       </div>
-                      <div className="mt-4">
-                        <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm hover:underline">
-                          <Github className="mr-2 h-4 w-4" />
-                          Code
-                        </a>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </a>
+                    </div>
+                    <CardDescription>{project.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <Badge key={tech} variant="secondary">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="mt-4">
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(project.githubLink, '_blank');
+                        }}
+                        className="inline-flex items-center text-sm hover:underline"
+                      >
+                        <Github className="mr-2 h-4 w-4" />
+                        Code
+                      </button>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           )}

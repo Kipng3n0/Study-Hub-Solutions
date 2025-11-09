@@ -67,28 +67,16 @@ export function Booking() {
         .from('bookings')
         .insert([bookingData])
 
-      if (dbError) throw dbError
-
-      // Send booking email via direct fetch to Edge Function
-      try {
-        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-booking-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-          },
-          body: JSON.stringify({ record: bookingData })
-        })
-
-        if (response.ok) {
-          console.log('Booking email sent successfully')
-        } else {
-          console.warn('Booking email sending failed:', await response.text())
-        }
-      } catch (emailError) {
-        console.warn('Booking email sending failed:', emailError)
-        // Don't throw error - booking was saved successfully
+      if (dbError) {
+        console.error('Booking database error:', dbError)
+        throw dbError
       }
+
+      console.log('Booking saved successfully!')
+
+      // Email sending functionality (temporarily disabled)
+      // TODO: Set up Supabase Edge Function for email notifications
+      console.log('Booking saved successfully:', bookingData)
 
       toast({
         title: 'Booking confirmed!',

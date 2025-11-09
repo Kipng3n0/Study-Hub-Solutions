@@ -67,32 +67,21 @@ export function Contact() {
         .insert([contactRecord])
 
       if (dbError) {
-        console.error('Database error:', dbError)
+        console.error('Database error details:', {
+          message: dbError.message,
+          code: dbError.code,
+          details: dbError.details,
+          hint: dbError.hint,
+          full: dbError
+        })
         throw dbError
       }
 
-      console.log('Contact saved successfully, sending email...')
+      console.log('Contact saved successfully!')
+      console.log('Record submitted:', contactRecord)
 
-      // Send email via direct fetch to Edge Function
-      try {
-        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-          },
-          body: JSON.stringify({ record: contactRecord })
-        })
-
-        if (response.ok) {
-          console.log('Email sent successfully')
-        } else {
-          console.warn('Email sending failed:', await response.text())
-        }
-      } catch (emailError) {
-        console.warn('Email sending failed:', emailError)
-        // Don't throw error - contact was saved successfully
-      }
+      // Email sending functionality (temporarily disabled)
+      // TODO: Set up Supabase Edge Function for email notifications
 
       toast({
         title: 'Message sent successfully!',
