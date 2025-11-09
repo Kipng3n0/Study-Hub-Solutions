@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase-hardcoded' // Temporary: using hardcoded credentials
 
 const contactInfo = [
   {
@@ -72,8 +72,16 @@ export function Contact() {
           code: dbError.code,
           details: dbError.details,
           hint: dbError.hint,
-          full: dbError
+          full: JSON.stringify(dbError, null, 2)
         })
+        
+        // Show user-friendly error
+        toast({
+          title: 'Database Error',
+          description: `Error: ${dbError.message} (Code: ${dbError.code})`,
+          variant: 'destructive',
+        })
+        
         throw dbError
       }
 
