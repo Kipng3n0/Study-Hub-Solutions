@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase-hardcoded' // Temporary: using hardcoded credentials
+import { sendContactNotification, sendContactConfirmation } from '@/lib/emailService'
 
 const contactInfo = [
   {
@@ -88,12 +89,33 @@ export function Contact() {
       console.log('Contact saved successfully!')
       console.log('Record submitted:', contactRecord)
 
-      // Email sending functionality (temporarily disabled)
-      // TODO: Set up Supabase Edge Function for email notifications
+      // Send email notifications
+      try {
+        // Send notification to Study Hub Solutions
+        await sendContactNotification({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        })
+
+        // Send confirmation to user
+        await sendContactConfirmation({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        })
+
+        console.log('Emails sent successfully')
+      } catch (emailError) {
+        console.error('Failed to send emails:', emailError)
+        // Don't fail the whole operation if email fails
+      }
 
       toast({
         title: 'Message sent successfully!',
-        description: "We'll get back to you as soon as possible.",
+        description: "We'll get back to you as soon as possible. Check your email for confirmation.",
       })
 
       setFormData({ name: '', email: '', subject: '', message: '' })

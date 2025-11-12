@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase-hardcoded' // Temporary: using hardcoded credentials
 import type { Database } from '@/lib/database.types'
+import { sendBookingNotification, sendBookingConfirmation } from '@/lib/emailService'
 
 const services = [
   'Project Help - Web Development',
@@ -74,13 +75,39 @@ export function Booking() {
 
       console.log('Booking saved successfully!')
 
-      // Email sending functionality (temporarily disabled)
-      // TODO: Set up Supabase Edge Function for email notifications
-      console.log('Booking saved successfully:', bookingData)
+      // Send email notifications
+      try {
+        // Send notification to Study Hub Solutions
+        await sendBookingNotification({
+          service: formData.service,
+          date: formData.date,
+          time: formData.time,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        })
+
+        // Send confirmation to user
+        await sendBookingConfirmation({
+          service: formData.service,
+          date: formData.date,
+          time: formData.time,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        })
+
+        console.log('Booking emails sent successfully')
+      } catch (emailError) {
+        console.error('Failed to send booking emails:', emailError)
+        // Don't fail the whole operation if email fails
+      }
 
       toast({
         title: 'Booking confirmed!',
-        description: "We'll send you a confirmation email shortly.",
+        description: "Check your email for confirmation details.",
       })
 
       setStep(4)
