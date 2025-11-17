@@ -1,5 +1,4 @@
--- NUCLEAR OPTION: Remove ALL triggers and functions from contacts/bookings tables
--- This will completely clean your database of any automation
+
 
 -- Step 1: Drop ALL triggers on contacts table
 DO $$ 
@@ -73,8 +72,3 @@ SELECT 'Functions with http:', count(*)
 FROM information_schema.routines
 WHERE routine_schema = 'public'
 AND routine_definition LIKE '%http%';
-
--- Step 6: Test insert (uncomment to test)
--- INSERT INTO contacts (name, email, subject, message, status) 
--- VALUES ('Cleanup Test', 'test@example.com', 'Test', 'Testing after cleanup', 'new')
--- RETURNING *;
