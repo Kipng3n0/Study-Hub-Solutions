@@ -16,6 +16,7 @@ import { About } from '@/pages/About'
 import { Contact } from '@/pages/Contact'
 import { Booking } from '@/pages/Booking'
 import { FAQ } from '@/pages/FAQ'
+import { Testimonials } from '@/pages/Testimonials'
 
 function App() {
   const { setTheme } = useThemeStore()
@@ -40,6 +41,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/testimonials" element={<Testimonials />} />
         </Routes>
       </main>
       <Footer />
