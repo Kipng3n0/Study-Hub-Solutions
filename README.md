@@ -24,7 +24,7 @@ A modern web application for educational services with integrated booking, conta
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Kipng3n0/Study-Hub-Solutions
 cd Study-Hub-Solutions
 
 # Install dependencies
