@@ -22,7 +22,7 @@ function App() {
   const { setTheme } = useThemeStore()
 
   useEffect(() => {
-    // Force dark theme on mount
+
     setTheme(true)
   }, [])
 
