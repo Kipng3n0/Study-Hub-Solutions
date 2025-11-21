@@ -36,7 +36,7 @@ const testimonials = [
     role: 'MBA Student',
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop',
     content: 'The data analysis project they helped me with became the highlight of my portfolio. Excellent attention to detail and communication.',
-    rating: 5
+    rating: 4.5
   },
   {
     name: 'Alex Thompson',
@@ -50,7 +50,7 @@ const testimonials = [
     role: 'Information Systems Major',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop',
     content: 'The mobile app development project exceeded my expectations. Professional quality work delivered on time.',
-    rating: 5
+    rating: 4
   },
   {
     name: 'James Wilson',
@@ -85,7 +85,7 @@ const testimonials = [
     role: 'Full Stack Developer',
     image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=150&h=150&fit=crop',
     content: 'The MERN stack project they built for my portfolio was incredible. It helped me land interviews at top tech companies.',
-    rating: 5
+    rating: 4.5
   }
 ]
 
