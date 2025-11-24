@@ -7,7 +7,8 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 
 const demoCategories = [
-  { name: 'All', count: 6 },
+  { name: 'All', count: 7 },
+  { name: 'Web Projects', count: 1 },
   { name: 'Calculators', count: 2 },
   { name: 'Productivity', count: 2 },
   { name: 'Educational', count: 2 },
@@ -184,6 +185,43 @@ export function Demos() {
             <Input placeholder="To" />
           </div>
           <Button className="w-full">Convert</Button>
+        </div>
+      ),
+    },
+    {
+      icon: Code,
+      title: 'E-Commerce Platform (Top Ascend Merchants)',
+      description: 'Live e-commerce store demo hosted on your custom domain.',
+      category: 'Web Projects',
+      component: (
+        <div className="space-y-4">
+          <div className="aspect-video rounded-xl overflow-hidden border bg-muted">
+            <img
+              src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&h=600&fit=crop"
+              alt="E-commerce platform preview"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li>Browse products with clean, responsive UI</li>
+            <li>Shopping cart and checkout flow with payment integration</li>
+            <li>Product details pages and organized categories</li>
+          </ul>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button
+              className="w-full sm:w-auto flex-1"
+              onClick={() => window.open('https://topascendmerchants.co.ke', '_blank')}
+            >
+              View Live Store
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full sm:w-auto flex-1"
+              onClick={() => window.open('https://github.com/example/ecommerce-platform', '_blank')}
+            >
+              View Code
+            </Button>
+          </div>
         </div>
       ),
     },

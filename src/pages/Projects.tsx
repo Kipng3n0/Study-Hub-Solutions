@@ -16,7 +16,7 @@ const fallbackProjects = [
     category: 'Web Development',
     technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
     difficulty: 'Advanced',
-    demoLink: 'https://example-ecommerce-demo.com',
+    demoLink: 'https://topascendmerchants.co.ke',
     githubLink: 'https://github.com/example/ecommerce-platform',
   },
   {
@@ -216,7 +216,7 @@ export default function Projects() {
                 <Card 
                   key={project.id} 
                   className="group flex flex-col h-full hover:shadow-lg transition-all hover:scale-[1.02] duration-300 cursor-pointer"
-                  onClick={() => window.open(project.githubLink, '_blank')}
+                  onClick={() => window.open(project.demoLink, '_blank')}
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
