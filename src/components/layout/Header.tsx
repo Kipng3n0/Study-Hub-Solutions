@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Menu, X, Moon, Sun, GraduationCap } from 'lucide-react'
+import { Menu, X, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useThemeStore } from '@/store/theme'
 import { cn } from '@/lib/utils'
 
 const navigation = [
@@ -19,7 +18,6 @@ const navigation = [
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const { isDark, toggleTheme } = useThemeStore()
   const location = useLocation()
 
   useEffect(() => {
@@ -46,7 +44,7 @@ export function Header() {
             <div className="relative">
               <GraduationCap className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold text-[#111827]">
               Study Hub Solutions
             </span>
           </Link>
@@ -78,18 +76,6 @@ export function Header() {
 
           {/* Right side buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="rounded-full"
-            >
-              {isDark ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
             <Link to="/booking">
               <Button>Book Consultation</Button>
             </Link>
@@ -97,18 +83,6 @@ export function Header() {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="rounded-full"
-            >
-              {isDark ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
             <Button
               variant="ghost"
               size="icon"

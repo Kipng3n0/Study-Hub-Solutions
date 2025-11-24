@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Toaster } from '@/components/ui/toaster'
+import { FloatingWhatsApp } from '@/components/FloatingWhatsApp'
 import { useThemeStore } from '@/store/theme'
 
 // Pages
@@ -22,8 +23,8 @@ function App() {
   const { setTheme } = useThemeStore()
 
   useEffect(() => {
-
-    setTheme(true)
+    // Force light theme on mount
+    setTheme(false)
   }, [])
 
   return (
@@ -46,6 +47,7 @@ function App() {
       </main>
       <Footer />
       <Toaster />
+      <FloatingWhatsApp />
     </div>
   )
 }
