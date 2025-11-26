@@ -105,7 +105,7 @@ export function Testimonials() {
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Hear from students who have achieved their academic goals with Study Hub Solutions. 
-              Real testimonials from real students who have experienced our exceptional tutoring and project assistance.
+              Testimonials from students who have experienced our exceptional tutoring and project assistance.
             </p>
           </motion.div>
         </div>
