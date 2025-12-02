@@ -118,10 +118,12 @@ export function Testimonials() {
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: index * 0.06, duration: 0.4, type: 'spring', stiffness: 260, damping: 24 }}
               >
                 <Card className="h-full hover:shadow-lg transition-shadow">
                   <CardHeader>

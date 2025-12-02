@@ -212,12 +212,19 @@ export default function Projects() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project) => (
-                <Card 
-                  key={project.id} 
-                  className="group flex flex-col h-full hover:shadow-lg transition-all hover:scale-[1.02] duration-300 cursor-pointer"
-                  onClick={() => window.open(project.demoLink, '_blank')}
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ delay: index * 0.08, duration: 0.4, type: 'spring', stiffness: 260, damping: 24 }}
                 >
+                  <Card 
+                    className="group flex flex-col h-full hover:shadow-lg transition-all duration-300 cursor-pointer"
+                    onClick={() => window.open(project.demoLink, '_blank')}
+                  >
                   <div className="aspect-video overflow-hidden">
                     <img
                       src={project.image}
@@ -285,6 +292,7 @@ export default function Projects() {
                     </div>
                   </CardContent>
                 </Card>
+              </motion.div>
               ))}
             </div>
           )}

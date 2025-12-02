@@ -89,7 +89,7 @@ export function About() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+              <h2 className="text-3xl font-bold mb-6 text-[#111827]">Our Mission</h2>
               <p className="text-lg text-muted-foreground mb-4">
                 At Study Hub Solutions, we're dedicated to bridging the gap between academic theory and practical application. We believe that every student deserves access to high-quality educational support and mentorship.
               </p>
@@ -98,15 +98,15 @@ export function About() {
               </p>
               <div className="flex gap-4 mt-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary">500+</div>
+                  <div className="text-3xl font-bold text-[#111827]">500+</div>
                   <div className="text-sm text-muted-foreground">Students Helped</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary">95%</div>
+                  <div className="text-3xl font-bold text-[#111827]">95%</div>
                   <div className="text-sm text-muted-foreground">Success Rate</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary">4.9/5</div>
+                  <div className="text-3xl font-bold text-[#111827]">4.9/5</div>
                   <div className="text-sm text-muted-foreground">Average Rating</div>
                 </div>
               </div>
@@ -136,7 +136,7 @@ export function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Our Values</h2>
+            <h2 className="text-3xl font-bold mb-4 text-[#111827]">Our Values</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               The principles that guide everything we do
             </p>
@@ -177,7 +177,7 @@ export function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Meet Our Team</h2>
+            <h2 className="text-3xl font-bold mb-4 text-[#111827]">Meet Our Team</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Experienced professionals dedicated to your success
             </p>
@@ -227,7 +227,7 @@ export function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Our Journey</h2>
+            <h2 className="text-3xl font-bold mb-4 text-[#111827]">Our Journey</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Key milestones in our growth
             </p>
@@ -244,7 +244,7 @@ export function About() {
                   className="flex gap-4 items-start"
                 >
                   <div className="flex-shrink-0 w-20 text-right">
-                    <div className="text-2xl font-bold text-primary">{milestone.year}</div>
+                    <div className="text-2xl font-bold text-[#111827]">{milestone.year}</div>
                   </div>
                   <div className="flex-shrink-0 w-4 h-4 rounded-full bg-primary mt-2" />
                   <div className="flex-1">

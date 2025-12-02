@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { BentoDemo } from '@/components/ui/bento-demo'
 
 const services = [
   {
@@ -182,7 +183,7 @@ export function Home() {
             <Badge className="mb-4" variant="secondary">
               Your Academic Success Partner
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-blue-600 to-blue-700 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-[#111827]">
               Master Your Academics with Expert Guidance
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -226,6 +227,25 @@ export function Home() {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Smart Study Features (Bento) */}
+      <section className="py-20 px-4 bg-muted/50">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Smart Study Hub Features</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Powerful tools that keep your work organised, searchable, and on schedule.
+            </p>
+          </motion.div>
+
+          <BentoDemo />
         </div>
       </section>
 
@@ -480,7 +500,7 @@ export function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-[#111827] to-[#b45309] rounded-2xl p-12 text-center text-white"
+            className="bg-gradient-to-r from-[#111827] to-[#0f766e] rounded-2xl p-12 text-center text-white"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Excel in Your Studies?

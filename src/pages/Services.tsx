@@ -467,7 +467,7 @@ export function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-[#111827] to-[#b45309] rounded-2xl p-12 text-center text-white"
+            className="bg-gradient-to-r from-[#111827] to-[#0f766e] rounded-2xl p-12 text-center text-white"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Get Started?

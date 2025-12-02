@@ -127,9 +127,11 @@ export function Blog() {
               {filteredPosts.map((post, index) => (
                 <motion.div
                   key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  whileHover={{ y: -6, scale: 1.01 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ delay: index * 0.06, duration: 0.35, type: 'spring', stiffness: 260, damping: 24 }}
                 >
                   <Card key={post.id} className="h-full flex flex-col hover:shadow-lg transition-shadow">
                     <Link to={`/blog/${post.id}`} className="block h-full">
@@ -144,7 +146,7 @@ export function Blog() {
                         </Badge>
                       </div>
                       <CardHeader>
-                        <CardTitle className="text-xl hover:text-primary transition-colors">
+                        <CardTitle className="text-xl hover:text-foreground transition-colors">
                           {post.title}
                         </CardTitle>
                         <CardDescription className="line-clamp-2">
