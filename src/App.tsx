@@ -1,31 +1,34 @@
-import { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { Toaster } from '@/components/ui/toaster'
-import { FloatingWhatsApp } from '@/components/FloatingWhatsApp'
-import { useThemeStore } from '@/store/theme'
+import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { Toaster } from "@/components/ui/toaster";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { useThemeStore } from "@/store/theme";
 
 // Pages
-import { Home } from '@/pages/Home'
-import { Services } from '@/pages/Services'
-import Projects from '@/pages/Projects'
-import { Demos } from '@/pages/Demos'
-import { Blog } from '@/pages/Blog'
-import BlogPost from '@/pages/BlogPost'
-import { About } from '@/pages/About'
-import { Contact } from '@/pages/Contact'
-import { Booking } from '@/pages/Booking'
-import { FAQ } from '@/pages/FAQ'
-import { Testimonials } from '@/pages/Testimonials'
+import { Home } from "@/pages/Home";
+import { Services } from "@/pages/Services";
+import Projects from "@/pages/Projects";
+import { Demos } from "@/pages/Demos";
+import { Blog } from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
+import { About } from "@/pages/About";
+import { Contact } from "@/pages/Contact";
+import { Booking } from "@/pages/Booking";
+import { FAQ } from "@/pages/FAQ";
+import { Testimonials } from "@/pages/Testimonials";
+import { Privacy } from "@/pages/Privacy";
+import { Terms } from "@/pages/Terms";
+import { Refund } from "@/pages/Refund";
 
 function App() {
-  const { setTheme } = useThemeStore()
+  const { setTheme } = useThemeStore();
 
   useEffect(() => {
     // Force light theme on mount
-    setTheme(false)
-  }, [])
+    setTheme(false);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -43,13 +46,16 @@ function App() {
           <Route path="/booking" element={<Booking />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/refund" element={<Refund />} />
         </Routes>
       </main>
       <Footer />
       <Toaster />
       <FloatingWhatsApp />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
